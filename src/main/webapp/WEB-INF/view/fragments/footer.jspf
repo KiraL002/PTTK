@@ -1,0 +1,10 @@
+<%@ page pageEncoding="UTF-8" %>
+</main>
+<footer class="site-footer">
+    <div>
+        <span>GaraMan · Hệ thống quản lí gara ô tô</span>
+        <span>Dịch vụ tận tâm · Thông tin minh bạch</span>
+    </div>
+</footer>
+</body>
+</html>
