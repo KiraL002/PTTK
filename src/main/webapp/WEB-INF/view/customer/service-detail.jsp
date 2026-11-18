@@ -10,9 +10,9 @@
             <dt>Mã dịch vụ</dt>
             <dd><c:out value="${service.code}"/></dd>
             <dt>Giá dịch vụ</dt>
-            <dd>${g:money(service.price)} ₫</dd>
+            <dd>${g:money(service.price)} đ</dd>
             <dt>Thời gian dự kiến</dt>
-            <dd>${empty service.duration ? '—' : service.duration} giờ</dd>
+            <dd>${empty service.duration ? '—' : g:quantity(service.duration)}<c:if test="${not empty service.duration}"> giờ</c:if></dd>
             <dt>Nhóm dịch vụ</dt>
             <dd><c:out value="${service.category}"/></dd>
             <dt>Xe áp dụng</dt>
@@ -31,18 +31,18 @@
                 <thead>
                     <tr>
                         <th>Tên phụ tùng</th>
-                        <th>Số lượng</th>
+                        <th class="numeric">Số lượng</th>
                         <th>Đơn vị</th>
-                        <th class="money">Giá bán hiện tại</th>
+                        <th class="numeric">Giá bán hiện tại (đ)</th>
                     </tr>
                 </thead>
                 <tbody>
                     <c:forEach var="item" items="${service.serviceParts}">
                         <tr>
                             <td><c:out value="${item.sparePart.name}"/></td>
-                            <td>${g:quantity(item.quantity)}</td>
+                            <td class="numeric">${g:quantity(item.quantity)}</td>
                             <td><c:out value="${item.sparePart.unit}"/></td>
-                            <td class="money">${g:money(item.sparePart.sellingPrice)} ₫</td>
+                            <td class="numeric">${g:money(item.sparePart.sellingPrice)}</td>
                         </tr>
                     </c:forEach>
                     <c:if test="${empty service.serviceParts}">

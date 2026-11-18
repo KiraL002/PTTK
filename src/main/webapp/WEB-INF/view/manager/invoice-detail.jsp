@@ -9,13 +9,13 @@
         <span class="badge">Đã thanh toán</span>
     </div>
     <div class="invoice-meta">
-        <p><span>Khách hàng</span><c:out value="${customer.fullName}"/></p>
-        <p><span>Điện thoại</span><c:out value="${customer.phone}"/></p>
-        <p><span>Biển số xe</span><c:out value="${car.licensePlate}" default="—"/></p>
-        <p><span>Loại xe</span><c:out value="${car.brand}"/> <c:out value="${car.model}"/></p>
+        <p><span>Khách hàng</span><c:out value="${invoice.customer.fullName}"/></p>
+        <p><span>Điện thoại</span><c:out value="${invoice.customer.phone}"/></p>
+        <p><span>Biển số xe</span><c:out value="${invoice.car.licensePlate}" default="—"/></p>
+        <p><span>Loại xe</span><c:out value="${invoice.car.brand}"/> <c:out value="${invoice.car.model}"/></p>
         <p><span>Ngày lập</span>${g:date(invoice.createdDate)}</p>
         <p><span>Ngày thanh toán</span>${g:date(invoice.paymentDate)}</p>
-        <p><span>Nhân viên phụ trách</span><c:out value="${salesStaff.fullName}" default="—"/></p>
+        <p><span>Nhân viên phụ trách</span><c:out value="${invoice.salesStaff.fullName}" default="—"/></p>
         <p><span>Thanh toán</span>${invoice.paymentMethod == 'CASH' ? 'Tiền mặt' : (invoice.paymentMethod == 'BANK_TRANSFER' ? 'Chuyển khoản' : fn:escapeXml(invoice.paymentMethod))}</p>
     </div>
     <p><strong>Yêu cầu sửa chữa:</strong> <c:out value="${invoice.requestDescription}"/></p>
@@ -25,18 +25,18 @@
             <thead>
                 <tr>
                     <th>Dịch vụ</th>
-                    <th class="center">Số lượng</th>
-                    <th class="money">Đơn giá</th>
-                    <th class="money">Thành tiền</th>
+                    <th class="numeric">Số lượng</th>
+                    <th class="numeric">Đơn giá (đ)</th>
+                    <th class="numeric">Thành tiền (đ)</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="line" items="${invoice.invoiceServices}">
                     <tr>
                         <td><c:out value="${line.service.name}"/><c:if test="${not empty line.technician}"><br><small>Kĩ thuật viên: <c:out value="${line.technician}"/></small></c:if></td>
-                        <td class="center">${line.quantity}</td>
-                        <td class="money">${g:money(line.price)} ₫</td>
-                        <td class="money">${g:money(line.lineTotal)} ₫</td>
+                        <td class="numeric">${g:quantity(line.quantity)}</td>
+                        <td class="numeric">${g:money(line.price)}</td>
+                        <td class="numeric">${g:money(line.lineTotal)}</td>
                     </tr>
                 </c:forEach>
                 <c:if test="${empty invoice.invoiceServices}">
@@ -53,20 +53,20 @@
             <thead>
                 <tr>
                     <th>Phụ tùng</th>
-                    <th class="center">Số lượng</th>
+                    <th class="numeric">Số lượng</th>
                     <th>Đơn vị</th>
-                    <th class="money">Đơn giá</th>
-                    <th class="money">Thành tiền</th>
+                    <th class="numeric">Đơn giá (đ)</th>
+                    <th class="numeric">Thành tiền (đ)</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="line" items="${invoice.invoiceParts}">
                     <tr>
                         <td><c:out value="${line.sparePart.name}"/></td>
-                        <td class="center">${g:quantity(line.quantity)}</td>
+                        <td class="numeric">${g:quantity(line.quantity)}</td>
                         <td><c:out value="${line.sparePart.unit}"/></td>
-                        <td class="money">${g:money(line.price)} ₫</td>
-                        <td class="money">${g:money(line.lineTotal)} ₫</td>
+                        <td class="numeric">${g:money(line.price)}</td>
+                        <td class="numeric">${g:money(line.lineTotal)}</td>
                     </tr>
                 </c:forEach>
                 <c:if test="${empty invoice.invoiceParts}">
@@ -78,17 +78,17 @@
         </table>
     </div>
     <div class="invoice-totals">
-        <p><span>Tiền dịch vụ</span><strong>${g:money(invoice.serviceTotal)} ₫</strong></p>
-        <p><span>Tiền phụ tùng</span><strong>${g:money(invoice.partTotal)} ₫</strong></p>
+        <p><span>Tiền dịch vụ</span><strong>${g:money(invoice.serviceTotal)} đ</strong></p>
+        <p><span>Tiền phụ tùng</span><strong>${g:money(invoice.partTotal)} đ</strong></p>
         <div class="table-total">
             <span>Tổng tiền thanh toán</span>
-            <strong>${g:money(invoice.totalAmount)} ₫</strong>
+            <strong>${g:money(invoice.totalAmount)} đ</strong>
         </div>
     </div>
     <p class="caption section-space">Cảm ơn quý khách đã sử dụng dịch vụ tại GaraMan.</p>
 </article>
 <c:url var="backInvoices" value="/customer-visits">
-    <c:param name="customerId" value="${customer.id}"/>
+    <c:param name="customerId" value="${invoice.customer.id}"/>
     <c:param name="startDate" value="${startDate}"/>
     <c:param name="endDate" value="${endDate}"/>
 </c:url>

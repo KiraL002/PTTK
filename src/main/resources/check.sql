@@ -1,27 +1,67 @@
 -- Khách hàng
-SELECT * FROM garaman3.tblCustomer3;
+SELECT
+    *
+FROM
+    garaman3.tblCustomer3
+ORDER BY id;
 
 -- Dịch vụ
-SELECT * FROM garaman3.tblService3;
+SELECT
+    *
+FROM
+    garaman3.tblService3
+ORDER BY id;
 
 -- Phụ tùng
-SELECT * FROM garaman3.tblSparePart3;
+SELECT
+    *
+FROM
+    garaman3.tblSparePart3
+ORDER BY id;
 
 -- Hóa đơn
-SELECT * FROM garaman3.tblInvoice3;
+SELECT
+    *
+FROM
+    garaman3.tblInvoice3
+ORDER BY id;
 
 -- Chi tiết dịch vụ trong hóa đơn
-SELECT * FROM garaman3.tblInvoiceService3;
+SELECT
+    *
+FROM
+    garaman3.tblInvoiceService3
+ORDER BY id;
 
 -- Chi tiết phụ tùng trong hóa đơn
-SELECT * FROM garaman3.tblInvoicePart3;
+SELECT
+    *
+FROM
+    garaman3.tblInvoicePart3
+ORDER BY id;
 
 -- Tài khoản và vai trò quản lí (mật khẩu không đưa ra màn hình)
-SELECT m.id, m.fullName, m.username, s.position
-FROM garaman3.tblMember3 m
-JOIN garaman3.tblStaff3 s ON s.tblMember3id=m.id
-JOIN garaman3.tblManager3 g ON g.tblMember3id=s.tblMember3id;
+SELECT
+    m.id,
+    m.fullName,
+    m.username,
+    m.role
+FROM
+    garaman3.tblMember3 m
+WHERE
+    m.role = 'MANAGER';
 
 -- Vai trò nhân viên bán hàng và nhân viên kho
-SELECT * FROM garaman3.tblSalesStaff3;
-SELECT * FROM garaman3.tblWarehouseStaff3;
+SELECT
+    id, fullName, username, role
+FROM
+    garaman3.tblMember3
+WHERE
+    role = 'SALES';
+
+SELECT
+    id, fullName, username, role
+FROM
+    garaman3.tblMember3
+WHERE
+    role = 'WAREHOUSE';

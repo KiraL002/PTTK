@@ -18,7 +18,7 @@
                     <th>Mã hóa đơn</th>
                     <th>Ngày thanh toán</th>
                     <th>Biển số xe</th>
-                    <th class="money">Tổng tiền</th>
+                    <th class="numeric">Tổng tiền (đ)</th>
                     <th>Chi tiết</th>
                 </tr>
             </thead>
@@ -27,8 +27,8 @@
                     <tr>
                         <td><c:out value="${item.code}"/></td>
                         <td>${g:date(item.paymentDate)}</td>
-                        <td><c:out value="${carsByInvoice[item.id].licensePlate}" default="—"/></td>
-                        <td class="money">${g:money(item.totalAmount)} ₫</td>
+                        <td><c:out value="${item.car.licensePlate}" default="—"/></td>
+                        <td class="numeric">${g:money(item.totalAmount)}</td>
                         <td>
                             <c:url var="invoiceLink" value="/invoice-detail">
                                 <c:param name="invoiceId" value="${item.id}"/>
@@ -50,7 +50,7 @@
     </div>
     <div class="table-total">
         <span>Tổng doanh thu</span>
-        <strong>${g:money(totalRevenue)} ₫</strong>
+        <strong>${g:money(totalRevenue)} đ</strong>
     </div>
 </section>
 <c:url var="result" value="/statistics-result">

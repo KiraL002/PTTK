@@ -12,7 +12,7 @@
     </div>
     <div class="summary-item">
         <span>Tổng doanh thu</span>
-        <strong>${g:money(totalRevenue)} ₫</strong>
+        <strong>${g:money(totalRevenue)} đ</strong>
     </div>
 </div>
 <section class="panel">
@@ -21,24 +21,24 @@
         <table>
             <thead>
                 <tr>
-                    <th>STT</th>
+                    <th class="numeric">STT</th>
                     <th>Mã KH</th>
                     <th>Họ và tên</th>
                     <th>Điện thoại</th>
-                    <th class="center">Số lần</th>
-                    <th class="money">Doanh thu</th>
+                    <th class="numeric">Số lần</th>
+                    <th class="numeric">Doanh thu (đ)</th>
                     <th>Chi tiết</th>
                 </tr>
             </thead>
             <tbody>
                 <c:forEach var="item" items="${statistics}" varStatus="row">
                     <tr>
-                        <td>${row.count}</td>
+                        <td class="numeric">${row.count}</td>
                         <td><c:out value="${item.code}"/></td>
                         <td><c:out value="${item.fullName}"/></td>
                         <td><c:out value="${item.phone}"/></td>
-                        <td class="center">${item.visitCount}</td>
-                        <td class="money">${g:money(item.totalRevenue)} ₫</td>
+                        <td class="numeric">${g:quantity(item.visitCount)}</td>
+                        <td class="numeric">${g:money(item.totalRevenue)}</td>
                         <td>
                             <c:url var="visits" value="/customer-visits">
                                 <c:param name="customerId" value="${item.id}"/>

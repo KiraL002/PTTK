@@ -10,7 +10,7 @@
             <dt>Mã phụ tùng</dt>
             <dd><c:out value="${sparePart.code}"/></dd>
             <dt>Giá bán</dt>
-            <dd>${g:money(sparePart.sellingPrice)} ₫ / <c:out value="${sparePart.unit}"/></dd>
+            <dd>${g:money(sparePart.sellingPrice)} đ/<c:out value="${sparePart.unit}"/></dd>
             <dt>Tồn kho</dt>
             <dd>${g:quantity(sparePart.stockQty)} <c:out value="${sparePart.unit}"/></dd>
             <dt>Thông số kĩ thuật</dt>

@@ -31,8 +31,8 @@
                         <tr>
                             <th>Mã</th>
                             <th>Tên dịch vụ</th>
-                            <th class="money">Giá dịch vụ</th>
-                            <th>Thời gian</th>
+                            <th class="numeric">Giá dịch vụ (đ)</th>
+                            <th class="numeric">Thời gian (giờ)</th>
                             <th>Chi tiết</th>
                         </tr>
                     </thead>
@@ -41,8 +41,8 @@
                             <tr>
                                 <td><c:out value="${item.code}"/></td>
                                 <td><c:out value="${item.name}"/></td>
-                                <td class="money">${g:money(item.price)} ₫</td>
-                                <td>${empty item.duration ? '—' : item.duration} giờ</td>
+                                <td class="numeric">${g:money(item.price)}</td>
+                                <td class="numeric">${empty item.duration ? '—' : g:quantity(item.duration)}</td>
                                 <td>
                                     <c:url var="detail" value="/service-detail">
                                         <c:param name="serviceId" value="${item.id}"/>
@@ -69,7 +69,7 @@
                         <tr>
                             <th>Mã</th>
                             <th>Tên phụ tùng</th>
-                            <th class="money">Giá bán</th>
+                            <th class="numeric">Giá bán (đ)</th>
                             <th>Đơn vị</th>
                             <th>Tình trạng</th>
                             <th>Chi tiết</th>
@@ -80,7 +80,7 @@
                             <tr>
                                 <td><c:out value="${item.code}"/></td>
                                 <td><c:out value="${item.name}"/></td>
-                                <td class="money">${g:money(item.sellingPrice)} ₫</td>
+                                <td class="numeric">${g:money(item.sellingPrice)}</td>
                                 <td><c:out value="${item.unit}"/></td>
                                 <td><span class="badge ${item.inStock ? '' : 'neutral'}">${item.inStock ? 'Còn hàng' : 'Tạm hết hàng'}</span></td>
                                 <td>

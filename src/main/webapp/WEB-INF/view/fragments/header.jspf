@@ -8,10 +8,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><c:out value="${pageTitle}" default="GaraMan"/> | GaraMan</title>
-        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css?v=20261101-search-row-2">
-        <script defer src="${pageContext.request.contextPath}/assets/js/app.js?v=20261103-design-sync"></script>
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/assets/css/style.css?v=20261118-cleanup">
+        <script defer src="${pageContext.request.contextPath}/assets/js/app.js?v=20261118-local-dates"></script>
     </head>
-    <body class="${managerArea ? 'manager' : 'public'}">
+    <body>
         <header class="site-header">
             <div class="header-inner">
                 <a class="brand" href="${pageContext.request.contextPath}/home"><span class="brand-mark">G</span><span>Gara<span class="brand-accent">Man</span><small>HỆ THỐNG QUẢN LÍ GARA Ô TÔ</small></span></a>

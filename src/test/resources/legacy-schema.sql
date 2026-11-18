@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS tblSupplier3 (
 CREATE TABLE IF NOT EXISTS tblService3 (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
-    price DECIMAL(15,2) NOT NULL,
+    price DECIMAL(15, 2) NOT NULL,
     duration INT NULL,
     description TEXT NULL,
     category VARCHAR(100) NULL,
@@ -56,7 +56,7 @@ CREATE TABLE IF NOT EXISTS tblService3 (
 CREATE TABLE IF NOT EXISTS tblSparePart3 (
     id INT NOT NULL AUTO_INCREMENT,
     name VARCHAR(150) NOT NULL,
-    sellingPrice DECIMAL(15,2) NOT NULL,
+    sellingPrice DECIMAL(15, 2) NOT NULL,
     description TEXT NULL,
     unit VARCHAR(30) NOT NULL,
     specification TEXT NULL,
@@ -73,8 +73,7 @@ CREATE TABLE IF NOT EXISTS tblWarehouse3 (
     description TEXT NULL,
     garageId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_warehouse3_garage
-        FOREIGN KEY (garageId) REFERENCES tblGarage3 (id)
+    CONSTRAINT fk_warehouse3_garage FOREIGN KEY (garageId) REFERENCES tblGarage3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblCar3 (
@@ -85,8 +84,7 @@ CREATE TABLE IF NOT EXISTS tblCar3 (
     `year` INT NULL,
     customerId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_car3_customer
-        FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id)
+    CONSTRAINT fk_car3_customer FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblAppointment3 (
@@ -98,8 +96,7 @@ CREATE TABLE IF NOT EXISTS tblAppointment3 (
     createdDate DATETIME NOT NULL,
     customerId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_appointment3_customer
-        FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id)
+    CONSTRAINT fk_appointment3_customer FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblImportReceipt3 (
@@ -110,38 +107,31 @@ CREATE TABLE IF NOT EXISTS tblImportReceipt3 (
     supplierId INT NOT NULL,
     warehouseStaffId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_importreceipt3_warehouse
-        FOREIGN KEY (warehouseId) REFERENCES tblWarehouse3 (id),
-    CONSTRAINT fk_importreceipt3_supplier
-        FOREIGN KEY (supplierId) REFERENCES tblSupplier3 (id),
-    CONSTRAINT fk_importreceipt3_staff
-        FOREIGN KEY (warehouseStaffId) REFERENCES tblMember3 (id)
+    CONSTRAINT fk_importreceipt3_warehouse FOREIGN KEY (warehouseId) REFERENCES tblWarehouse3 (id),
+    CONSTRAINT fk_importreceipt3_supplier FOREIGN KEY (supplierId) REFERENCES tblSupplier3 (id),
+    CONSTRAINT fk_importreceipt3_staff FOREIGN KEY (warehouseStaffId) REFERENCES tblMember3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblImportDetail3 (
     id INT NOT NULL AUTO_INCREMENT,
-    quantity DECIMAL(15,3) NOT NULL,
-    importPrice DECIMAL(15,2) NOT NULL,
+    quantity DECIMAL(15, 3) NOT NULL,
+    importPrice DECIMAL(15, 2) NOT NULL,
     importReceiptId INT NOT NULL,
     sparePartId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_importdetail3_receipt
-        FOREIGN KEY (importReceiptId) REFERENCES tblImportReceipt3 (id),
-    CONSTRAINT fk_importdetail3_part
-        FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
+    CONSTRAINT fk_importdetail3_receipt FOREIGN KEY (importReceiptId) REFERENCES tblImportReceipt3 (id),
+    CONSTRAINT fk_importdetail3_part FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblServicePart3 (
     id INT NOT NULL AUTO_INCREMENT,
-    quantity DECIMAL(15,3) NOT NULL,
+    quantity DECIMAL(15, 3) NOT NULL,
     serviceId INT NOT NULL,
     sparePartId INT NOT NULL,
     PRIMARY KEY (id),
     CONSTRAINT uq_servicepart3_service_part UNIQUE (serviceId, sparePartId),
-    CONSTRAINT fk_servicepart3_service
-        FOREIGN KEY (serviceId) REFERENCES tblService3 (id),
-    CONSTRAINT fk_servicepart3_part
-        FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
+    CONSTRAINT fk_servicepart3_service FOREIGN KEY (serviceId) REFERENCES tblService3 (id),
+    CONSTRAINT fk_servicepart3_part FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblInvoice3 (
@@ -155,38 +145,31 @@ CREATE TABLE IF NOT EXISTS tblInvoice3 (
     carId INT NOT NULL,
     salesStaffId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_invoice3_customer
-        FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id),
-    CONSTRAINT fk_invoice3_car
-        FOREIGN KEY (carId) REFERENCES tblCar3 (id),
-    CONSTRAINT fk_invoice3_staff
-        FOREIGN KEY (salesStaffId) REFERENCES tblMember3 (id)
+    CONSTRAINT fk_invoice3_customer FOREIGN KEY (customerId) REFERENCES tblCustomer3 (id),
+    CONSTRAINT fk_invoice3_car FOREIGN KEY (carId) REFERENCES tblCar3 (id),
+    CONSTRAINT fk_invoice3_staff FOREIGN KEY (salesStaffId) REFERENCES tblMember3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblInvoiceService3 (
     id INT NOT NULL AUTO_INCREMENT,
     quantity INT NOT NULL,
-    price DECIMAL(15,2) NOT NULL,
+    price DECIMAL(15, 2) NOT NULL,
     technicianName VARCHAR(100) NULL,
     workStatus VARCHAR(30) NOT NULL,
     invoiceId INT NOT NULL,
     serviceId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_invoiceservice3_invoice
-        FOREIGN KEY (invoiceId) REFERENCES tblInvoice3 (id),
-    CONSTRAINT fk_invoiceservice3_service
-        FOREIGN KEY (serviceId) REFERENCES tblService3 (id)
+    CONSTRAINT fk_invoiceservice3_invoice FOREIGN KEY (invoiceId) REFERENCES tblInvoice3 (id),
+    CONSTRAINT fk_invoiceservice3_service FOREIGN KEY (serviceId) REFERENCES tblService3 (id)
 );
 
 CREATE TABLE IF NOT EXISTS tblInvoicePart3 (
     id INT NOT NULL AUTO_INCREMENT,
-    quantity DECIMAL(15,3) NOT NULL,
-    price DECIMAL(15,2) NOT NULL,
+    quantity DECIMAL(15, 3) NOT NULL,
+    price DECIMAL(15, 2) NOT NULL,
     invoiceId INT NOT NULL,
     sparePartId INT NOT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_invoicepart3_invoice
-        FOREIGN KEY (invoiceId) REFERENCES tblInvoice3 (id),
-    CONSTRAINT fk_invoicepart3_part
-        FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
+    CONSTRAINT fk_invoicepart3_invoice FOREIGN KEY (invoiceId) REFERENCES tblInvoice3 (id),
+    CONSTRAINT fk_invoicepart3_part FOREIGN KEY (sparePartId) REFERENCES tblSparePart3 (id)
 );

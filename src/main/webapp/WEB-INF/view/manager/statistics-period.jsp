@@ -7,19 +7,25 @@
         <div class="form-row">
             <div class="field">
                 <label for="startDate">Từ ngày</label>
-                <input
-                    id="startDate"
-                    name="startDate"
-                    type="date"
-                    min="1900-01-01"
-                    max="9998-12-31"
-                    value="${fn:escapeXml(startDate)}"
-                    required
-                >
+                <div class="date-field">
+                    <input id="startDate" name="startDate" type="text" placeholder="dd/mm/yyyy"
+                           value="${fn:escapeXml(g:dateInput(startDate))}" required>
+                    <span class="date-picker" hidden>
+                        <button class="button secondary" type="button" aria-label="Mở lịch chọn ngày bắt đầu">Lịch</button>
+                        <input type="date" min="1900-01-01" max="9998-12-31" tabindex="-1" aria-hidden="true">
+                    </span>
+                </div>
             </div>
             <div class="field">
                 <label for="endDate">Đến ngày</label>
-                <input id="endDate" name="endDate" type="date" min="1900-01-01" max="9998-12-31" value="${fn:escapeXml(endDate)}" required>
+                <div class="date-field">
+                    <input id="endDate" name="endDate" type="text" placeholder="dd/mm/yyyy"
+                           value="${fn:escapeXml(g:dateInput(endDate))}" required>
+                    <span class="date-picker" hidden>
+                        <button class="button secondary" type="button" aria-label="Mở lịch chọn ngày kết thúc">Lịch</button>
+                        <input type="date" min="1900-01-01" max="9998-12-31" tabindex="-1" aria-hidden="true">
+                    </span>
+                </div>
             </div>
         </div>
         <div class="actions">

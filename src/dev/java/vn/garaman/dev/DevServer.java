@@ -22,33 +22,52 @@ public class DevServer {
         Context context = tomcat.addWebapp("", new File(root, "src/main/webapp").getAbsolutePath());
         context.setParentClassLoader(DevServer.class.getClassLoader());
         Throwable[] startupFailure = new Throwable[1];
-        context.addServletContainerInitializer((classes, servletContext) ->
-                servletContext.setAttribute("vn.garaman.startupFailure", startupFailure), Collections.emptySet());
+        context.addServletContainerInitializer(
+                (classes, servletContext) ->
+                        servletContext.setAttribute("vn.garaman.startupFailure", startupFailure),
+                Collections.emptySet());
         StandardRoot resources = new StandardRoot(context);
-        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes", new File(root, "target/classes").getAbsolutePath(), "/"));
+        resources.addPreResources(
+                new DirResourceSet(
+                        resources,
+                        "/WEB-INF/classes",
+                        new File(root, "target/classes").getAbsolutePath(),
+                        "/"));
         context.setResources(resources);
         AtomicBoolean stopped = new AtomicBoolean();
-        Runnable stop = () -> {
-            if (!stopped.compareAndSet(false, true)) return;
-            try { tomcat.stop(); }
-            catch (Exception ignored) { }
-            finally {
-                try { tomcat.destroy(); }
-                catch (Exception ignored) { }
-                // This launcher owns the entire embedded server and its JDBC driver.
-                AbandonedConnectionCleanupThread.uncheckedShutdown();
-            }
-        };
+        Runnable stop =
+                () -> {
+                    if (!stopped.compareAndSet(false, true))
+                        return;
+                    try {
+                        tomcat.stop();
+                    } catch (Exception ignored) {
+                    } finally {
+                        try {
+                            tomcat.destroy();
+                        } catch (Exception ignored) {
+                        }
+                        // This launcher owns the entire embedded server and its JDBC driver.
+                        AbandonedConnectionCleanupThread.uncheckedShutdown();
+                    }
+                };
         Runtime.getRuntime().addShutdownHook(new Thread(stop));
         try {
             tomcat.start();
-            if (!context.getState().isAvailable() || !tomcat.getConnector().getState().isAvailable()) {
+            if (!context.getState().isAvailable()
+                    || !tomcat.getConnector().getState().isAvailable()) {
                 Throwable cause = startupFailure[0];
                 Throwable rootCause = cause;
-                while (rootCause != null && rootCause.getCause() != null && rootCause.getCause() != rootCause)
+                while (rootCause != null
+                        && rootCause.getCause() != null
+                        && rootCause.getCause() != rootCause)
                     rootCause = rootCause.getCause();
-                String reason = rootCause == null ? "Tomcat khong the khoi dong. Kiem tra cong " + port
-                        : rootCause.getClass().getSimpleName() + ": " + rootCause.getMessage();
+                String reason =
+                        rootCause == null
+                                ? "Tomcat khong the khoi dong. Kiem tra cong " + port
+                                : rootCause.getClass().getSimpleName()
+                                        + ": "
+                                        + rootCause.getMessage();
                 throw new IllegalStateException("GaraMan khoi dong that bai - " + reason, cause);
             }
             System.out.println("GaraMan: http://localhost:" + port + "/home");

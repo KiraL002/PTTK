@@ -7,8 +7,19 @@ public class ServiceStatistics3 extends Service3 {
     private int usageCount;
     private BigDecimal totalRevenue = BigDecimal.ZERO;
 
-    public int getUsageCount() { return usageCount; }
-    public void setUsageCount(int usageCount) { this.usageCount = usageCount; }
-    public BigDecimal getTotalRevenue() { return totalRevenue; }
-    public void setTotalRevenue(BigDecimal totalRevenue) { this.totalRevenue = totalRevenue == null ? BigDecimal.ZERO : totalRevenue; }
+    public int getUsageCount() {
+        return usageCount;
+    }
+
+    public void setUsageCount(int usageCount) {
+        this.usageCount = usageCount;
+    }
+
+    public BigDecimal getTotalRevenue() {
+        return totalRevenue;
+    }
+
+    public void setTotalRevenue(BigDecimal totalRevenue) {
+        this.totalRevenue = totalRevenue == null ? BigDecimal.ZERO : totalRevenue;
+    }
 }
