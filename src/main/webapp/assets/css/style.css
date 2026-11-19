@@ -56,10 +56,6 @@ input {
 button {
     cursor: pointer;
 }
-button:disabled {
-    cursor: not-allowed;
-    opacity: 0.55;
-}
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
@@ -269,11 +265,6 @@ table {
     border-collapse: collapse;
     text-align: left;
     font-size: 14px;
-}
-caption {
-    text-align: left;
-    font-weight: 700;
-    margin-bottom: 12px;
 }
 thead {
     background: #f0f5f8;
@@ -631,9 +622,6 @@ td.numeric {
     .summary-item {
         padding: 12px;
     }
-    .eyebrow {
-        font-size: 9px;
-    }
 }
 
 .nav-button {
@@ -675,9 +663,6 @@ nav form {
 }
 .detail-grid dd {
     overflow-wrap: anywhere;
-}
-.invoice-paper .caption {
-    margin-bottom: 0;
 }
 @media (max-width: 760px) {
     nav {
@@ -756,7 +741,6 @@ nav form {
         display: block;
     }
     .invoice-paper table {
-        width: 100%;
         font-size: 10px;
     }
     .invoice-paper th,

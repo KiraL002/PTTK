@@ -280,7 +280,7 @@ public final class SchemaMigration {
         return null;
     }
 
-    private static boolean hasTable(Connection con, String table) throws SQLException {
+    static boolean hasTable(Connection con, String table) throws SQLException {
         return actualTable(con, table) != null;
     }
 

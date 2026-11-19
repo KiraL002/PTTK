@@ -49,7 +49,8 @@ public class LoginServlet extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/home");
             return;
         }
-        request.setAttribute("next", next(request));
+        String nextPage = next(request);
+        request.setAttribute("next", nextPage);
         String username = request.getParameter("username"),
                 password = request.getParameter("password");
         request.setAttribute("username", username);
@@ -74,7 +75,7 @@ public class LoginServlet extends HttpServlet {
             }
             request.changeSessionId();
             request.getSession().setAttribute("manager", manager);
-            response.sendRedirect(request.getContextPath() + next(request));
+            response.sendRedirect(request.getContextPath() + nextPage);
         } catch (SQLException ex) {
             Web.databaseError(this, request, response, ex);
         }

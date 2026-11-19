@@ -98,7 +98,7 @@ public final class Database {
             throws SQLException {
         if (create)
             executeResource(connection, "/schema.sql");
-        if (!hasTable(connection, "tblMember3"))
+        if (!SchemaMigration.hasTable(connection, "tblMember3"))
             throw new SQLException(
                     "Chưa có cấu trúc CSDL GaraMan; hãy nhập schema.sql hoặc bật GARAMAN_DB_INIT.");
         if (!seed
@@ -135,18 +135,6 @@ public final class Database {
         } finally {
             connection.setAutoCommit(originalAutoCommit);
         }
-    }
-
-    private static boolean hasTable(Connection connection, String name) throws SQLException {
-        try (ResultSet rows =
-                connection
-                        .getMetaData()
-                        .getTables(connection.getCatalog(), null, "%", new String[] {"TABLE"})) {
-            while (rows.next())
-                if (name.equalsIgnoreCase(rows.getString("TABLE_NAME")))
-                    return true;
-        }
-        return false;
     }
 
     private static long count(Connection connection, String table) throws SQLException {
